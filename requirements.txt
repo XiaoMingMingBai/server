@@ -1,2 +1,8 @@
 Django
 djangorestframework
+djangorestframework-simplejwt
+django-allauth
+dj-rest-auth
+
+requests
+gunicorn
