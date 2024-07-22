@@ -1,8 +1,13 @@
 Django
-djangorestframework
 djangorestframework-simplejwt
 django-allauth
 dj-rest-auth
 
 requests
 gunicorn
+
+# REST
+djangorestframework
+markdown # Markdown support for the browsable API.
+django-filter # Filtering support
+pygments  # We'll be using this for the code highlighting
