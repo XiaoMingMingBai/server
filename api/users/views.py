@@ -22,14 +22,19 @@ class UserLogoutView(APIView):
         request.auth.delete()
         return Response(status=status.HTTP_200_OK)
 
-class UserLogoutView(APIView):
+class UserProfileView(APIView):
     permission_classes = [IsAuthenticated]
 
-    def post(self, request):
-        request.auth.delete()
-        return Response(status=status.HTTP_200_OK)
+    def get(self, request):
+        user = request.user
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
+    
+# 用户删除视图
+class UserDeleteView(APIView):
+    permission_classes = [IsAuthenticated]
 
-class UserProfileView(generics.RetrieveUpdateAPIView):
-	queryset = User.objects.all()
-	serializer_class = UserSerializer
-	permission_classes = [IsAuthenticated]
+    def delete(self, request):
+        user = request.user
+        user.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
