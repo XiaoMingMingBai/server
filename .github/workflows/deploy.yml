@@ -1,0 +1,54 @@
+name: Deploy Django App
+run-name: ${{ github.actor }} deploy django app
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+
+    - name: Install dependencies
+      run: |
+        python -m venv venv
+        source venv/bin/activate
+        pip install -r requirements.txt
+
+    - name: Run tests
+      run: |
+        source venv/bin/activate
+        python manage.py test
+
+    - name: Deploy to server
+      env:
+        SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        SSH_CONFIG: ${{ secrets.SSH_PRIVATE_CONFIG }}
+        SSH_KNOWN_HOST: ${{ secrets.SSH_KNOWN_HOSTS }}
+        DEPLOY_PATH: /home/ming/app/api
+      run: |
+        echo "$SSH_KEY" > ~/.ssh/github_action
+        echo "$SSH_KNOWN_HOST" > ~/.ssh/known_hosts
+        echo "$SSH_CONFIG" > ~/.ssh/config
+        chmod 600 ssh_key
+        rsync -avz -e "ssh -i ssh_key -p 22" --exclude='.git' --exclude='venv' . ming@server:$DEPLOY_PATH
+        ssh -i ssh_key -p 22 ming@server << 'EOF'
+          cd $DEPLOY_PATH
+          source venv/bin/activate
+          pip install -r requirements.txt
+          python manage.py migrate --settings=myproject.settings.production
+          python manage.py collectstatic --noinput --settings=myproject.settings.production
+        EOF
