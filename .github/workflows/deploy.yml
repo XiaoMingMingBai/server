@@ -45,7 +45,9 @@ jobs:
         echo "$SSH_KEY" > ~/.ssh/github_action
         echo "$SSH_KNOWN_HOST" > ~/.ssh/known_hosts
         echo "$SSH_CONFIG" > ~/.ssh/config
-        chmod 600 ssh_key
+        chmod 600 ~/.ssh/github_action
+        chmod 600 ~/.ssh/config
+        chmod 644 ~/.ssh/known_hosts
         rsync -avz -e "ssh -i ssh_key -p 22" --exclude='.git' --exclude='venv' . ming@server:$DEPLOY_PATH
         ssh -i ssh_key -p 22 ming@server << 'EOF'
           cd $DEPLOY_PATH
