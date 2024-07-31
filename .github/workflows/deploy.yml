@@ -30,7 +30,7 @@ jobs:
 
     - name: Run tests
       run: |
-        source venv/bin/activate
+        cd api
         python manage.py test
 
     - name: Deploy to server
@@ -49,6 +49,7 @@ jobs:
           cd $DEPLOY_PATH
           source venv/bin/activate
           pip install -r requirements.txt
+          cd api
           python manage.py migrate --settings=myproject.settings.production
           python manage.py collectstatic --noinput --settings=myproject.settings.production
         EOF
