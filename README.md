@@ -17,7 +17,7 @@ git clone
 # 进入项目根目录
 cd ~/server
 # 安装python3和pip
-sudo apt-get install python3 pip
+sudo apt-get install python3 python3.10-venv
 # 创建虚拟环境
 sudo python3 -m venv venv
 # 激活虚拟环境
@@ -34,8 +34,19 @@ python manage.py createsuperuser
 # 运行项目 端口8000
 python manage.py runserver
 
+
+# 退出python虚拟环境
+deactivate
 ```
 
+3. github action (可选操作)
+
+```shell
+# 安装依赖
+sudo apt install act
+# 运行github action
+act
+```
 
 ## 相关命令
 
