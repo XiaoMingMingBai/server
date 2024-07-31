@@ -30,6 +30,7 @@ jobs:
 
     - name: Run tests
       run: |
+        source venv/bin/activate
         cd api
         python manage.py test
 
