@@ -54,6 +54,6 @@ jobs:
           source venv/bin/activate
           pip install -r requirements.txt
           cd api
-          python manage.py migrate --settings=myproject.settings.production
-          python manage.py collectstatic --noinput --settings=myproject.settings.production
+          python manage.py migrate --settings=api.settings.production
+          python manage.py collectstatic --noinput --settings=api.settings.production
         EOF
