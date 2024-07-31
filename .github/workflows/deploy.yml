@@ -41,6 +41,7 @@ jobs:
         SSH_KNOWN_HOST: ${{ secrets.SSH_KNOWN_HOSTS }}
         DEPLOY_PATH: /home/ming/app/api
       run: |
+        mkdir -p ~/.ssh
         echo "$SSH_KEY" > ~/.ssh/github_action
         echo "$SSH_KNOWN_HOST" > ~/.ssh/known_hosts
         echo "$SSH_CONFIG" > ~/.ssh/config
