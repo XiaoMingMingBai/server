@@ -10,10 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
-from curses import flash
 from pathlib import Path
-
-import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -26,9 +23,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 SECRET_KEY = 'django-insecure-_8rbxal8wxbfy7aq-3_ssaauy!0e5js$t^xp(6bia2fz1qpsta'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '120.46.37.39']
+
+CSRF_TRUSTED_ORIGINS = ['localhost', '127.0.0.1', '120.46.37.39']
 
 
 # Application definition
