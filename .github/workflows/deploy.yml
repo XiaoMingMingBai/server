@@ -54,6 +54,8 @@ jobs:
           source venv/bin/activate
           pip install -r requirements.txt
           cd api
+          python manage.py makemigrations --settings=api.settings.production
           python manage.py migrate --settings=api.settings.production
           python manage.py collectstatic --noinput --settings=api.settings.production
+          sudo systemctl restart gunicorn
         EOF

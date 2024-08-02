@@ -1,2 +1,2 @@
-bind = "0.0.0.0:8000"
+bind = "unix:/home/ming/app/api/api/gunicorn.sock"
 workers = 3
